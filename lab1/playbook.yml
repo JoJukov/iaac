@@ -1,7 +1,65 @@
 - hosts: app
   become: true
+  vars:
+    default_container_name: docker
+    default_container_image: timurbabs/django
+    repo_name: https://github.com/mdn/django-locallibrary-tutorial.git
+
   tasks:
-  - name: apt update upgrade
-    apt:
-      update_cache: yes
-      upgrade: yes
+    - name: Install aptitude
+      apt:
+        name: aptitude
+        state: latest
+        update_cache: true
+
+    - name: Install required system packages
+      apt:
+        pkg:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - python3-pip
+          - net-tools
+          - virtualenv
+          - python3-setuptools
+        state: latest
+        update_cache: true
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt:
+        name: docker-ce
+        state: latest
+        update_cache: true
+
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+
+    - name: Pull default Docker image
+      community.docker.docker_image:
+        name: "{{ default_container_image }}"
+        source: pull
+        
+    - name: Clone a github repository
+      git:
+       repo: "{{ repo_name }}"
+       dest: /home/repos
+       clone: yes
+       update: yes
+
+    - name: Create default containers
+      community.docker.docker_container:
+        name: "{{ default_container_name }}1"
+        image: "{{ default_container_image }}"
+        state: present
