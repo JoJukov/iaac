@@ -4,3 +4,6 @@
 - src: git+https://gitlab.com/Vantus/nginx-install-role-vantus
   version: origin/master
   name: docker
+- src: git+https://gitlab.com/Vantus/openvpn-vantus
+  version: origin/master
+  name: docker

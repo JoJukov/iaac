@@ -2,3 +2,5 @@
 127.0.0.1 ansible_port=2200 ansible_ssh_private_key_file=/home/ivan/.ssh/id_rsa ansible_user=vagrant
 [web]
 127.0.0.1 ansible_port=2201 ansible_ssh_private_key_file=/home/ivan/.ssh/id_rsa ansible_user=vagrant
+[vpn]
+127.0.0.1 ansible_port=2200 ansible_ssh_private_key_file=/home/ivan/.ssh/id_rsa ansible_user=vagrant
