@@ -1,0 +1,8 @@
+- hosts: pg
+  become: true
+  roles:
+    - role: pg
+      vars:
+        pg_customized_data_dir: "var/lib/postgresql/{{ pg_version }}/data"
+        pg_roles: [{db: "db1", user: "user1"}, {db: "db2", user: "user2"}]
+  

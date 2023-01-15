@@ -4,8 +4,7 @@
 nodes = [
   { :hostname => 'host___1' },
   { :hostname => 'host___2' },
-
-
+  { :hostname => 'host___3' }
 ]
 
 Vagrant.configure("2") do |config|
